@@ -1,0 +1,12 @@
+{
+    "presets": [
+     ["@babel/preset-env",
+      {
+        //* Indica a Babel que compile el codigo con la misma version instalada de Nodejs en el proyecto
+       "targets": {
+        "node": "current"
+       }
+      }
+     ]
+    ]
+}
