@@ -1,5 +1,4 @@
 //* Require de modulos
-const webpack = require('webpack')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 //* Retorna el directorio actual

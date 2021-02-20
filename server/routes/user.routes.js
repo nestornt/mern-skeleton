@@ -1,9 +1,9 @@
 //! Archivo con la ruta de los API endpoints
-import express from '../express'
+import express from 'express'
 import userCtrl from '../controllers/user.controller'
 import authCtrl from '../controllers/auth.controller'
 
-const router = express.router()
+const router = express.Router()
 
 // Direccion de la ruta
 router.route('/api/users')
