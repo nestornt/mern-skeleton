@@ -1,6 +1,6 @@
 //* Require de modulos
-const path = require('path')
 const webpack = require('webpack')
+const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 //* Retorna el directorio actual
 const CURRENT_WORKING_DIR = process.cwd()

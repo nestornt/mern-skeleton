@@ -1,5 +1,4 @@
 //! Configuración de Express para aceptar peticiones HTTP
-
 import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
@@ -10,6 +9,7 @@ import Template from './../template'
 //! Todas las rutas y API endpoints necesitan ser importados a Express
 //! para que sean accesibles desde el lado del cliente
 import userRoutes from './routes/user.routes'
+import authRoutes from './routes/auth.routes'
 
 const app = express()
 
@@ -30,7 +30,22 @@ app.use(cors())
 app.get('/', (req, res) => {
     res.status(200).send(Template())
 })
+//* Rutas de usuario
+app.use('/', userRoutes)
+//* Rutas de usuario protegidas
+app.use('/', authRoutes)
 
-//app.use('/', userRoutes)
+app.use((err, req, res, next) => {
+    //? express-jwt genera un error llamado UnauthorizedError cuando un token
+    //? no puede ser validado por algún motivo, hay que controlar el error para 
+    //? devolver un status 401 al cliente
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).json({"error": err.name + ": " + err.message})
+    } else if (err) {
+        //? Esto se ejecuta si otros errores son generados
+        res.status(400).json({"error" : err.name + ": " + err.message})
+        console.log(err)
+    }
+})
 
 export default app

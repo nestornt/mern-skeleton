@@ -82,4 +82,5 @@ UserSchema.path('hashed_password').validate(function(v) {
     }
 }, null)
 
+// Hace referencia a new User en el controlador de usuario
 export default mongoose.model('User', UserSchema)
