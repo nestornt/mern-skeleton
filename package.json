@@ -7,7 +7,7 @@
   "author": "nestornt",
   "license": "MIT",
   "dependencies": {
-    "@hot-loader/react-dom": "16.13.0",
+    "@hot-loader/react-dom": "^17.0.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -21,7 +21,7 @@
     "mongoose": "^5.11.16",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-hot-loader": "4.12.20"
+    "react-hot-loader": "^4.13.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

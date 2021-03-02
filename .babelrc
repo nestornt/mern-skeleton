@@ -7,6 +7,11 @@
         "node": "current"
        }
       }
-     ]
+     ],
+     //* Incluye y configura react-hot-loader Babel plugin cómo requerido para el módulo react-hot-loader
+     "@babel/preset-react"
+    ],
+    "plugins": [
+      "react-hot-loader/babel"
     ]
 }

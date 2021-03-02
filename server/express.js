@@ -1,5 +1,6 @@
 //! Configuración de Express para aceptar peticiones HTTP
 import express from 'express'
+import path from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
@@ -10,8 +11,14 @@ import Template from './../template'
 //! para que sean accesibles desde el lado del cliente
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
+//! Comentar esta línea antes de preparar el código para producción
+import devBundle from './devBundle'
 
+const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
+
+//! Comentar esta línea antes de preparar el código para producción
+devBundle.use(app)
 
 //* Retorna el middleware que solo analiza json y solo mira al tipo de encabezado de url correcto
 app.use(bodyParser.json())
@@ -25,6 +32,9 @@ app.use(compress())
 app.use(helmet())
 //* Middleware que habilita el cross-origin resource sharing (CORS)
 app.use(cors())
+//* Cuando Express recive una peticion a la ruta /dist, sabrá que archivo estático servir
+//* cómo respuesta buscando en la carpeta dist
+app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 //* Retorna la plantilla HTML base al hacer peticiones GET
 app.get('/', (req, res) => {
