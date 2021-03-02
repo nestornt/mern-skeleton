@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import crypto from 'crypto'
 
 //? Trim: Parsea los espacios en blanco y los reduce solo al texto introducido
 //? La password actual (no en encriptada) no se guarda en la bd por seguridad
