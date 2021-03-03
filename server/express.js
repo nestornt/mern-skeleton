@@ -18,7 +18,7 @@ const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
 
 //! Comentar esta línea antes de preparar el código para producción
-devBundle.use(app)
+devBundle.compile(app)
 
 //* Retorna el middleware que solo analiza json y solo mira al tipo de encabezado de url correcto
 app.use(bodyParser.json())

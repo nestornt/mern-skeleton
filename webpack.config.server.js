@@ -21,6 +21,10 @@ const config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [ 'babel-loader' ]
+      },
+      {//* Se encarga de cargar, hacer el build y reflejar las imagenes al directorio dist con el código generado
+        test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+        use: 'file-loader'
       }
     ]
   }
