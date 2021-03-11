@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import unicornbikeImg from './../assets/images/unicornbike.jpg'
 //* makeStyles es un hook API que proviene de Material-UI, necesita recibir una
 //* función por parametro para retornarnos el acceso a nuestro tema personalizado
+import {Link} from 'react-router-dom'
+
 const useStyles = makeStyles(theme => ({
     card: {
         maxWidth: 600,
@@ -37,6 +39,8 @@ export default function Home() {
                 <Typography variant="body2" component="p">
                     Welcome to MERN Skeleton home page
                 </Typography>
+                <Link to="/users">Users</Link>
+                <Link to="/signup">Sign up</Link>
             </CardContent>
         </Card> 
     )
