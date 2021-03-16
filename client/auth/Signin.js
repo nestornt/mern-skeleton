@@ -1,3 +1,4 @@
+// Este componente redirecciona a la app después de un logueo correcto y guarda el jwt en la sesión del navegador
 import React, {useState} from 'react'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -54,10 +55,12 @@ export default function Signin(props) {
       password: values.password || undefined
     }
 
+    // Signin usa props en el argumento contendor de variables de react router, se encarga de redireccionar
     signin(user).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error})
       } else {
+        // Se ejecuta el método authenticate de auth-helper.js para guardar el token
         auth.authenticate(data, () => {
           setValues({ ...values, error: '',redirectToReferrer: true})
         })
@@ -65,10 +68,12 @@ export default function Signin(props) {
     })
   }
 
+  // [name] === event.target.value
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
 
+  // Redirecciona la app a la última location recibida en las props o redirecciona al componente home directamente
   const {from} = props.location.state || {
       from: {
         pathname: '/'
