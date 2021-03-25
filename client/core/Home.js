@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import unicornbikeImg from './../assets/images/unicornbike.jpg'
+import profileImg from './../assets/images/profile.jpg'
 //* makeStyles es un hook API que proviene de Material-UI, necesita recibir una
 //* función por parametro para retornarnos el acceso a nuestro tema personalizado
 import {Link} from 'react-router-dom'
@@ -34,14 +34,11 @@ export default function Home() {
             <Typography variant="h6" className={classes.title}>
                 Home Page
             </Typography>
-            <CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"/>
+            <CardMedia className={classes.media} image={profileImg} title="Unicorn Bicycle"/>
             <CardContent>
                 <Typography variant="body2" component="p">
                     Welcome to MERN Skeleton home page
                 </Typography>
-                <Link to="/users">Users</Link>
-                <Link to="/signup">Sign up</Link>
-                <Link to="/signin">Sign in</Link>
             </CardContent>
         </Card> 
     )

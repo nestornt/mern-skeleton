@@ -7,10 +7,19 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import Template from './../template'
-//! Todas las rutas y API endpoints necesitan ser importados a Express
-//! para que sean accesibles desde el lado del cliente
+// Todas las rutas y API endpoints necesitan ser importados a Express
+// para que sean accesibles desde el lado del cliente
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
+//! Modulos para el renderizado del servidor
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import StaticRouter from 'react-router-dom/StaticRouter'
+import MainRouter from './../client/MainRouter'
+
+import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
+import theme from './../client/theme'
+
 //! Comentar esta línea antes de preparar el código para producción
 import devBundle from './devBundle'
 
@@ -36,14 +45,39 @@ app.use(cors())
 //* cómo respuesta buscando en la carpeta dist
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
-//* Retorna la plantilla HTML base al hacer peticiones GET
-app.get('/', (req, res) => {
-    res.status(200).send(Template())
-})
 //* Rutas de usuario
 app.use('/', userRoutes)
 //* Rutas de usuario protegidas
 app.use('/', authRoutes)
+
+//* Retorna la plantilla HTML base al hacer peticiones GET
+app.get('/', (req, res) => {
+    //? 1. Genera los stilos CSS usando Material-UI's ServerStyleSheets 
+    const sheets = new ServerStyleSheets()
+    const context = {}
+    
+    //? 2. Usa renderToString para generar el HTML el cual renderiza los componentes especificos de la ruta solicitada
+    // Al reenderizar el arbol de React, el componente raíz MainRouter, es envuelto por el ThemeProvider de 
+    // Material-UI para proveer las props de estilo que son demandadas por los componentes hijos de MainRouter
+    const markup = ReactDOMServer.renderToString(
+      sheets.collect(
+            <StaticRouter location={req.url} context={context}>
+              <ThemeProvider theme={theme}>
+                <MainRouter />
+              </ThemeProvider>
+            </StaticRouter>
+          )
+      )
+      if (context.url) {
+        return res.redirect(303, context.url)
+      }
+      const css = sheets.toString()
+      //? 3. Retorna la plantilla con HTML y CSS en respuesta
+      res.status(200).send(Template({
+        markup: markup,
+        css: css
+      }))
+})
 
 app.use((err, req, res, next) => {
     //? express-jwt genera un error llamado UnauthorizedError cuando un token

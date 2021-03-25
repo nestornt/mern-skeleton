@@ -39,6 +39,7 @@ export default function Profile({ match }) {
   // Retorn el jwt si está logueado
   const jwt = auth.isAuthenticated()
 
+
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -49,12 +50,15 @@ export default function Profile({ match }) {
         userId: match.params.userId
 
     }, {t: jwt.token}, signal).then((data) => {
+      console.log("token: " + jwt.token, "userId:" + match.params.userId )
       if (data && data.error) {
         setRedirectToSignin(true)
       } else {
         setUser(data)
       }
     })
+
+    console.log(user)
 
     return function cleanup(){
       abortController.abort()
