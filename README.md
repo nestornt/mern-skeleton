@@ -1,40 +1,40 @@
 # MERN-skeleton
 
-Plantilla con toda la configuración backend y frontend para empezar a trabajar con cualquier aplicación MERN stack.
+Template with all the necessary backend and frontend configuration to begin with a MERN stack project.
 
-## *Estructura General*
+## *App Overview*
 
 **********************************************************************************************************
 
-### Vista Principal
+### Main view
 
 ![](images/MainView.PNG)
 
-### Usuarios Registrados
+### Users
 
 ![](images/Users.PNG)
 
-### Registrarse
+### Sign Up
 
 ![](images/SignUp.PNG)
 
-### Loguearse
+### Sign In
 
 ![](images/Signin.PNG)
 
-### Información de usuarios registrados
+### Public profiles
 
 ![](images/PublicProfile.PNG)
 
-### Información de perfil personal
+### Private profile info
 
 ![](images/MyProfile.PNG)
 
-### Editar perfil
+### Edit profile
 
 ![](images/EditProfile.PNG)
 
-### Borrar perfil
+### Delete profile
 
 ![](images/DeleteProfile.PNG)
 
