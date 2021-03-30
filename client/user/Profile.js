@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Profile({ match }) {
+
   const classes = useStyles()
   // Inicializamos el estado con un usuario vacío
   const [user, setUser] = useState({})
@@ -38,7 +39,6 @@ export default function Profile({ match }) {
   const [redirectToSignin, setRedirectToSignin] = useState(false)
   // Retorn el jwt si está logueado
   const jwt = auth.isAuthenticated()
-
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -50,15 +50,12 @@ export default function Profile({ match }) {
         userId: match.params.userId
 
     }, {t: jwt.token}, signal).then((data) => {
-      console.log("token: " + jwt.token, "userId:" + match.params.userId )
       if (data && data.error) {
         setRedirectToSignin(true)
       } else {
         setUser(data)
       }
     })
-
-    console.log(user)
 
     return function cleanup(){
       abortController.abort()

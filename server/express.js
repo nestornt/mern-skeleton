@@ -51,30 +51,33 @@ app.use('/', userRoutes)
 app.use('/', authRoutes)
 
 //* Retorna la plantilla HTML base al hacer peticiones GET
-app.get('/', (req, res) => {
-    //? 1. Genera los stilos CSS usando Material-UI's ServerStyleSheets 
+app.get('*', (req, res) => {
+    //? 1. Genera los stilos CSS usando Material-UI's ServerStyleSheets generando una instancia de este
     const sheets = new ServerStyleSheets()
-    const context = {}
+    // Crea un objeto de Javascript
+    const StaticContext = {}
     
     //? 2. Usa renderToString para generar el HTML el cual renderiza los componentes especificos de la ruta solicitada
     // Al reenderizar el arbol de React, el componente raíz MainRouter, es envuelto por el ThemeProvider de 
     // Material-UI para proveer las props de estilo que son demandadas por los componentes hijos de MainRouter
-    const markup = ReactDOMServer.renderToString(
+    const html = ReactDOMServer.renderToString(
       sheets.collect(
-            <StaticRouter location={req.url} context={context}>
+            <StaticRouter location={req.url} context={StaticContext}>
               <ThemeProvider theme={theme}>
                 <MainRouter />
               </ThemeProvider>
             </StaticRouter>
           )
       )
-      if (context.url) {
-        return res.redirect(303, context.url)
+      // Verificamos si hubo una redirección durante el render en el componente enviado en el html
+      // Este caso se ejecutaría al intentar acceder a una ruta privada durante un rendreizado del server
+      if (StaticContext.url) {
+        return res.redirect(303, StaticContext.url)
       }
       const css = sheets.toString()
       //? 3. Retorna la plantilla con HTML y CSS en respuesta
       res.status(200).send(Template({
-        markup: markup,
+        html: html,
         css: css
       }))
 })

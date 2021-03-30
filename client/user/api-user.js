@@ -12,24 +12,24 @@ const create = async (user) => {
         // El servidor devuelve la respuesta en forma de promesa
         return await response.json()
     }
-    catch (err) { console.error(err) }
+    catch(err) { console.error(err) }
 }
 
 const list = async (signal) => {
     try {
-        let response = await fetch('/api/users', { 
+        let response = await fetch('/api/users/', { 
             method: 'GET',
             signal: signal,
         })
       
         return await response.json()
     } 
-    catch (err) { console.error(err) }
+    catch(err) { console.error(err) }
 }
 
 const read = async (params, credentials, signal) => {
     try {
-        let response = await fetch('/api/users' + params.userId, {
+        let response = await fetch('/api/users/' + params.userId, {
             method: 'GET',
             signal: signal,
             headers: {
@@ -41,12 +41,12 @@ const read = async (params, credentials, signal) => {
         })
         return await response.json()
     }
-    catch (err) { console.error(err) }
+    catch(err) { console.error(err) }
 }
 
 const update = async (params, credentials, user) => {
     try {
-        let response = await fetch('/api/users' + params.userId, {
+        let response = await fetch('/api/users/' + params.userId, {
             method: 'PUT',
             headers: {
                'Accept' : 'application/json',
@@ -57,12 +57,12 @@ const update = async (params, credentials, user) => {
         })
         return await response.json()
     }
-    catch (err) { console.error(err) }
+    catch(err) { console.error(err) }
 }
 
 const remove = async (params, credentials) => {
     try {
-        let response = await fetch('/api/users' + params.userId, {
+        let response = await fetch('/api/users/' + params.userId, {
             method: 'DELETE',
             headers: {
                'Accept' : 'application/json',
@@ -72,7 +72,7 @@ const remove = async (params, credentials) => {
         })
         return await response.json()
     }
-    catch (err) { console.error(err) }
+    catch(err) { console.error(err) }
 }
 
 export { create, list, read, update, remove }
